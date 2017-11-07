@@ -5,6 +5,7 @@ import numpy as np
 import time
 import os
 import sys
+import random
 PATH = "{}/frames/*/*.jpg"
 
 print(sys.argv[1])
@@ -15,7 +16,6 @@ for name in ['alliot','david','krittisak', 'nat']:
         filenames = reversed(filenames)
     else:
         print('not reversed')
-
     for filename in filenames:
         try:
             img = cv2.imread(filename)
@@ -29,11 +29,12 @@ for name in ['alliot','david','krittisak', 'nat']:
                         filename = filename[:-4] + '_{}.jpg'.format(faces_found)
                     cv2.imwrite(filename, face[0])
                     print(filename)
-                    time.sleep(5)
+                    # time.sleep(5)
                     faces_found += 1
                 if faces_found == 0:
                     print("removing {}".format(filename))
                     os.remove(filename)
-        except:
+        except Exception as e:
+            print(e)
             print("error with {}".format(filename))
             pass
